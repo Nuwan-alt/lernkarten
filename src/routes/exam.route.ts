@@ -1,0 +1,21 @@
+import { Router } from 'express';
+import { ExamController } from '@controllers/exam.controller';
+import { CreateExamDto } from '@dtos/exam.dto';
+import { Routes } from '@interfaces/routes.interface';
+import { ValidationMiddleware } from '@middlewares/validation.middleware';
+
+export class ExamRoute implements Routes {
+  public path = '/exams';
+  public router = Router();
+  public exam = new ExamController();
+
+  constructor() {
+    this.initializeRoutes();
+  }
+
+  private initializeRoutes() {
+    this.router.post(`${this.path}`, ValidationMiddleware(CreateExamDto, 'body'), this.exam.createExam);
+    this.router.put(`${this.path}/:id(\\d+)`, ValidationMiddleware(CreateExamDto, 'body', true), this.exam.updateExam);
+    this.router.delete(`${this.path}/:id(\\d+)`, this.exam.deleteExam);
+  }
+}

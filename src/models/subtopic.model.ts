@@ -42,5 +42,8 @@ export default function (sequelize: Sequelize): typeof SubTopicModel {
     },
   );
 
+  SubTopicModel.hasOne(TopicModel, { foreignKey: 'topic_id', onDelete: 'CASCADE', onUpdate:'CASCADE' });
+  TopicModel.hasMany(SubTopicModel, { foreignKey: 'topic_id', onDelete: 'CASCADE', onUpdate:'CASCADE' });
+
   return SubTopicModel;
 }

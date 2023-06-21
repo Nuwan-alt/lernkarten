@@ -45,5 +45,8 @@ export default function (sequelize: Sequelize): typeof CardModel {
     },
   );
 
+  CardModel.hasOne(SubTopicModel, { foreignKey: 'subtopic_id', onDelete: 'CASCADE', onUpdate:'CASCADE' });
+  SubTopicModel.hasMany(CardModel, { foreignKey: 'subtopic_id', onDelete: 'CASCADE', onUpdate:'CASCADE' });
+
   return CardModel;
 }
