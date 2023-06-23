@@ -3,6 +3,7 @@ import { Container } from 'typedi';
 import { CreateExamDto } from '@dtos/exam.dto';
 import { Exam } from '@interfaces/exam.interface';
 import { ExamService } from '@services/exam.service';
+import { Topic } from '@/interfaces/topic.interface';
 
 export class ExamController {
   private exam = Container.get(ExamService);
@@ -36,6 +37,28 @@ export class ExamController {
       const deleteExamData: Exam = await this.exam.deleteExam(examId);
 
       res.status(200).json({ data: deleteExamData, message: 'deleted' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public getAllExams = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+
+      const allExamData: Exam[] = await this.exam.getAllExams();
+
+      res.status(200).json({ exams: allExamData});
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public getAllTopicsOfAExam = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const examId = Number(req.params.id);
+      const allTopicData: Topic[] = await this.exam.getAllTopicsOfAExam(examId)
+
+      res.status(200).json({ topics_for_the_exam: allTopicData});
     } catch (error) {
       next(error);
     }

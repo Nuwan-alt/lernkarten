@@ -3,6 +3,7 @@ import { Container } from 'typedi';
 import { CreateTopicDto } from '@dtos/topic.dto';
 import { Topic } from '@interfaces/topic.interface';
 import { TopicService } from '@services/topic.service';
+import { SubTopic } from '@/interfaces/subTopic.interface';
 
 export class TopicController {
   private topic = Container.get(TopicService);
@@ -37,6 +38,28 @@ export class TopicController {
       const deleteTopicData: Topic = await this.topic.deleteTopic(topicId);
 
       res.status(200).json({ data: deleteTopicData, message: 'deleted' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public getAllTopics = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+
+      const allTopicData: Topic[] = await this.topic.getAllTopics();
+
+      res.status(200).json({ topics: allTopicData});
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public getAllSubTopicsOfATopic = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const topicId = Number(req.params.id);
+      const allSubTopicData: SubTopic[] = await this.topic.getAllSubTopicsOfATopic(topicId);
+
+      res.status(200).json({ subtopics_for_the_topic: allSubTopicData});
     } catch (error) {
       next(error);
     }

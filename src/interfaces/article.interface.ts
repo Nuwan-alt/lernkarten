@@ -3,5 +3,6 @@ export interface Article {
     title: String;
     content: string;
     image: string;
+    link: string;
   }
   

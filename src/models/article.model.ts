@@ -34,6 +34,10 @@ export default function (sequelize: Sequelize): typeof ArticleModel {
         allowNull: false,
         type: DataTypes.STRING,
       },
+      link: {
+        allowNull: true,
+        type: DataTypes.STRING,
+      },
     },
     {
       tableName: 'articles',
