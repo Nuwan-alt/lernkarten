@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import { SubTopicController } from '@controllers/subTopic.controller';
 import { CreateSubTopicDto } from '@dtos/subtopic.dto';
+import { CreateUser_SubtopicDto } from '@/dtos/fav-subTopic.dto';
+
 import { Routes } from '@interfaces/routes.interface';
 import { ValidationMiddleware } from '@middlewares/validation.middleware';
 
@@ -14,10 +16,11 @@ export class SubTopicRoute implements Routes {
   }
 
   private initializeRoutes() {
+    
     this.router.get(`${this.path}`, this.subTopic.getAllSubTopics);
     this.router.get(`${this.path}/:id`, this.subTopic.getAllCardsOfASubTopic);
     this.router.post(`${this.path}/:topic`, ValidationMiddleware(CreateSubTopicDto, 'body'), this.subTopic.createSubTopic);
-    this.router.put(`${this.path}/:id(\\d+)`, ValidationMiddleware(CreateSubTopicDto, 'body', true), this.subTopic.updateTopic);
+    this.router.put(`${this.path}/:id(\\d+)`, ValidationMiddleware(CreateSubTopicDto, 'body'), this.subTopic.updateTopic);
     this.router.delete(`${this.path}/:id(\\d+)`, this.subTopic.deleteSubTopic);
-  }
+}
 }

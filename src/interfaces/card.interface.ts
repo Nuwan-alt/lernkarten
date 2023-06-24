@@ -3,5 +3,6 @@ export interface Card {
     subtopic_id?: number;
     question: string;
     answer: string;
+    isCustom:boolean
   }
   

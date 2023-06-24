@@ -1,10 +1,14 @@
 import { Service } from 'typedi';
 import { DB } from '@database';
 import { CreateSubTopicDto } from '@dtos/subtopic.dto';
+import { CreateUser_SubtopicDto } from '@/dtos/fav-subTopic.dto';
 import { HttpException } from '@/exceptions/httpException';
 import { SubTopic } from '@interfaces/subTopic.interface';
 import { Topic } from '@interfaces/topic.interface';
 import { Card } from '@/interfaces/card.interface';
+import { User_Subtopic } from '@/interfaces/fav-subTopic.interface';
+import { User } from '@/interfaces/users.interface';
+import { where } from 'sequelize';
 
 @Service() 
 export class SubTopicService {
@@ -53,4 +57,8 @@ export class SubTopicService {
 
     return allCards;
   }
+
+  
+
+
 }

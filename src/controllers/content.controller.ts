@@ -10,7 +10,7 @@ export class ContentController {
       
       const createContentData: any = await this.content.getContent();
 
-      res.status(200).json({ content: createContentData});
+      res.status(200).json({ examModels: createContentData});
     } catch (error) {
       next(error);
     }

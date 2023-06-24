@@ -4,7 +4,9 @@ import { CreateExamDto } from '@dtos/exam.dto';
 import { CreateNext_ExamDto } from '@dtos/next-exam.dto';
 import { HttpException } from '@/exceptions/httpException';
 import { Exam } from '@interfaces/exam.interface';
+import { Topic } from '@interfaces/topic.interface';
 import { Next_Exam } from '@/interfaces/next-exam.interface';
+import { User } from '@/interfaces/users.interface';
 
 @Service()
 export class ExamService {
@@ -62,5 +64,15 @@ export class ExamService {
     return createdNext_Exam;
   }
 
+  public async getUpComingExamsForUser(user_id: number): Promise<Next_Exam[]> {
+    const user: User = await DB.Users.findOne({where:{id:user_id}});
+    if (!user) throw new HttpException(409, "No user with this id");
 
-}\}":?l.ik,ujyhgrfedwsa 0-+       nm 
+    const upComingExams: Next_Exam[] = await DB.Next_Exam.findAll({where:{user_id:user_id},attributes:['user_id','exam_id','exam_date']});
+    if (!upComingExams) throw new HttpException(204, "There are no upcoming exams for this user");
+
+    return upComingExams;
+  }
+
+
+}

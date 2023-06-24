@@ -6,11 +6,11 @@ export class CreateNext_ExamDto {
   @IsNotEmpty()
   public user_id: number;
 
-  @IsDate()
+  @IsNumber()
   @IsNotEmpty()
   public exam_id: number;
 
-  @IsDate()
+  @IsString()
   @IsNotEmpty()
-  public exam_date: Date;
+  public exam_date: string;
 }

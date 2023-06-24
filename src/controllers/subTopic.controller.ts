@@ -1,9 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 import { Container } from 'typedi';
 import { CreateSubTopicDto } from '@dtos/subtopic.dto';
+import { CreateUser_SubtopicDto } from '@/dtos/fav-subTopic.dto';
 import { SubTopic } from '@interfaces/subTopic.interface';
 import { SubTopicService } from '@services/subtopic.service';
 import { Card } from '@/interfaces/card.interface';
+import { User_Subtopic } from '@/interfaces/fav-subTopic.interface';
 
 export class SubTopicController {
   private subtopic = Container.get(SubTopicService);
@@ -64,4 +66,6 @@ export class SubTopicController {
       next(error);
     }
   };
+
+  
 }
