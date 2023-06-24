@@ -8,7 +8,7 @@ import TopicModel from '@models/topic.model';
 import SubTopicModel from '@models/subtopic.model';
 import CardModel from '@models/card.model';
 import Next_ExamModel from '@models/next-exam.model';
-import User_SubtopicModel from '@models/user-subtopic.model';
+import User_SubtopicModel from '@/models/fav-subTopic.model';
 import CustomCardModel from '@models/customCard.model';
 import User_CardModel from '@models/user-card.model';
 import ArticleModel from '@models/article.model';

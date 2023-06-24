@@ -7,6 +7,7 @@ export class UserModel extends Model<User, UserCreationAttributes> implements Us
   public id: number;
   public email: string;
   public password: string;
+  public role: string;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -25,6 +26,10 @@ export default function (sequelize: Sequelize): typeof UserModel {
         type: DataTypes.STRING(45),
       },
       password: {
+        allowNull: false,
+        type: DataTypes.STRING(255),
+      },
+      role: {
         allowNull: false,
         type: DataTypes.STRING(255),
       },

@@ -6,7 +6,7 @@ export type ExamCreationAttributes = Partial<Exam>;
 export class ExamModel extends Model<Exam, ExamCreationAttributes> implements Exam {
   public id: number;
   public title: string;
-
+ 2  
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }

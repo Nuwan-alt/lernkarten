@@ -9,6 +9,7 @@ export class CardModel extends Model<Card, CardCreationAttributes> implements Ca
   public subtopic_id: number;
   public question: string;
   public answer: string;
+  public isCustom: boolean;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -38,12 +39,19 @@ export default function (sequelize: Sequelize): typeof CardModel {
         allowNull: false,
         type: DataTypes.STRING,
       },
+      isCustom: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+      },
     },
     {
       tableName: 'cards',
       sequelize,
     },
   );
+
+  CardModel.hasOne(SubTopicModel, { foreignKey: 'subtopic_id', onDelete: 'CASCADE', onUpdate:'CASCADE' });
+  SubTopicModel.hasMany(CardModel, { foreignKey: 'subtopic_id', onDelete: 'CASCADE', onUpdate:'CASCADE' });
 
   return CardModel;
 }

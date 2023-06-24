@@ -28,6 +28,7 @@ export default function (sequelize: Sequelize): typeof TopicModel {
         references: {
           model: ExamModel,
           key: 'id',
+          
         },
       },
       title: {
@@ -41,6 +42,9 @@ export default function (sequelize: Sequelize): typeof TopicModel {
       sequelize,
     },
   );
+
+  TopicModel.hasOne(ExamModel, { foreignKey: 'exam_id', onDelete: 'CASCADE', onUpdate:'CASCADE' });
+  ExamModel.hasMany(TopicModel, { foreignKey: 'exam_id', onDelete: 'CASCADE', onUpdate:'CASCADE' });
 
   return TopicModel;
 }
