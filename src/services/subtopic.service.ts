@@ -6,7 +6,6 @@ import { HttpException } from '@/exceptions/httpException';
 import { SubTopic } from '@interfaces/subTopic.interface';
 import { Topic } from '@interfaces/topic.interface';
 import { Card } from '@/interfaces/card.interface';
-import { User_Subtopic } from '@/interfaces/fav-subTopic.interface';
 import { User } from '@/interfaces/users.interface';
 import { where } from 'sequelize';
 

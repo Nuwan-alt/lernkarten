@@ -1,8 +1,5 @@
 import { IsString, IsEmail, IsNotEmpty, MinLength, MaxLength } from 'class-validator';
-enum UserRole {
-  User = "user",
-  Admin = "admin"
-}
+
 export class CreateUserDto {
 
   @IsEmail()
@@ -14,10 +11,7 @@ export class CreateUserDto {
   @MaxLength(32)
   public password: string;
 
-  @IsString()
-  @IsNotEmpty()
 
-  public role: UserRole;;
 }
 
 export class UpdateUserDto {

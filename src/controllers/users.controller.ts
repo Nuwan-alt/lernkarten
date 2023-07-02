@@ -12,7 +12,7 @@ export class UserController {
       const findAllUsersData: User[] = await this.user.findAllUser();
 
       res.status(200).json({ data: findAllUsersData, message: 'findAll' });
-    } catch (error) {
+    } catch (error) { 
       next(error);
     }
   };
@@ -33,7 +33,18 @@ export class UserController {
       const userData: CreateUserDto = req.body;
       const createUserData: User = await this.user.createUser(userData);
 
-      res.status(201).json({ data: createUserData, message: 'created' });
+      res.status(201).json({ data: createUserData, message: 'user-created' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public createAdmin = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userData: CreateUserDto = req.body;
+      const createUserData: User = await this.user.createAdmin(userData);
+
+      res.status(201).json({ data: createUserData, message: 'admin-created' });
     } catch (error) {
       next(error);
     }

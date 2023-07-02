@@ -13,6 +13,8 @@ import { DB } from '@database';
 import { Routes } from '@interfaces/routes.interface';
 import { ErrorMiddleware } from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
+import passport from 'passport';
+import session from 'express-session';
 
 export class App {
   public app: express.Application;
@@ -57,6 +59,14 @@ export class App {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(cookieParser());
+    this.app.use(session({
+      secret: 'asd-123',
+      resave: true,
+      saveUninitialized: true
+    }));
+    this.app.use(passport.initialize())
+    this.app.use(passport.session())
+    
   }
 
   private initializeRoutes(routes: Routes[]) {

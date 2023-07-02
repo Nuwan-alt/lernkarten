@@ -26,7 +26,7 @@ export default function (sequelize: Sequelize): typeof UserModel {
         type: DataTypes.STRING(45),
       },
       password: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.STRING(255),
       },
       role: {
