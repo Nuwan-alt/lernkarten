@@ -2,6 +2,7 @@ import { Request } from 'express';
 import { User } from '@interfaces/users.interface';
 
 export interface DataStoredInToken {
+  role: string,
   id: number;
 }
 

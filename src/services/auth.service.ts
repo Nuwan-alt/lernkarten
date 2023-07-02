@@ -9,7 +9,7 @@ import { DataStoredInToken, TokenData } from '@interfaces/auth.interface';
 import { User } from '@interfaces/users.interface';
 
 const createToken = (user: User): TokenData => {
-  const dataStoredInToken: DataStoredInToken = { id: user.id };
+  const dataStoredInToken: DataStoredInToken = { id: user.id, role:user.role };
   const expiresIn: number = 60 * 60;
 
   return { expiresIn, token: sign(dataStoredInToken, SECRET_KEY, { expiresIn }) };
@@ -20,6 +20,7 @@ const createCookie = (tokenData: TokenData): string => {
 }
 @Service()
 export class AuthService {
+
   public async signup(userData: CreateUserDto): Promise<User> {
     const findUser: User = await DB.Users.findOne({ where: { email: userData.email } });
     if (findUser) throw new HttpException(409, `This email ${userData.email} already exists`);
@@ -41,12 +42,27 @@ export class AuthService {
     const cookie = createCookie(tokenData);
 
     return { cookie, findUser };
+
   }
 
-  public async logout(userData: User): Promise<User> {
-    const findUser: User = await DB.Users.findOne({ where: { email: userData.email, password: userData.password } });
+  public async logout(email : string): Promise<User> {
+    const findUser: User = await DB.Users.findOne({ where: { email:email} });
     if (!findUser) throw new HttpException(409, "User doesn't exist");
 
     return findUser;
+  }
+
+  public async strategy_login(email:string): Promise<{ cookie: string; findUser: User }> {
+    var findUser: User = await DB.Users.findOne({ where: { email:email } });
+    if (!findUser) {
+      await DB.Users.create({email:email, role:'user'})
+      findUser = await DB.Users.findOne({ where: { email:email } });
+    }
+
+    const tokenData = createToken(findUser);
+    const cookie = createCookie(tokenData);
+
+    return { cookie, findUser };
+    
   }
 }
